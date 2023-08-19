@@ -8,13 +8,13 @@ const $messageFormButton=$messageForm.querySelector
 const $locationButton=document.querySelector
 ('#send-location')
 const $messages=document.querySelector('#messages')
-
+const $toastContainer=document.querySelector(".toast-container")
 //templates
 const messageTemplate=document.querySelector('#message-template').innerHTML
 const locationMessageTemplate=document.querySelector('#location-template').innerHTML
 const sidebarTemplate=document.querySelector('#sidebar-template').innerHTML
 const imageTemplate=document.querySelector('#image-template').innerHTML
-
+const toastTemplate=document.querySelector("#toast-template").innerHTML
 //options
 const {username,room}=Qs.parse(location.search,{ignoreQueryPrefix:true})
 
@@ -41,6 +41,15 @@ const autoscroll=()=>{
         $messages.scrollTop=$messages.scrollHeight
 
     }
+}
+const showToast=(message)=>{
+    const html=Mustache.render(toastTemplate,{
+        message
+    })
+    $toastContainer.insertAdjacentHTML('beforeend',html) 
+    setTimeout(()=>{
+        $toastContainer.removeChild($toastContainer.firstElementChild)
+    },2000)
 }
 const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/g;
 socket.on('message',(message)=>{
@@ -80,7 +89,7 @@ document.querySelector('#message-form').addEventListener('submit',(e)=>{
     //acknowledgement is client getting notified by server thst the event was received and processed
     if(message.trim().length==0) {
         $messageFormButton.removeAttribute('disabled')
-        return alert("message can't be empty")
+        return showToast("message can't be empty")
     }
     socket.emit('sendMessage',message,(error)=>{
         //enable the form

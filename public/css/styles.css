@@ -88,6 +88,7 @@ button:disabled {
     display: flex;
     position: fixed;
     height: 100%;
+    width: 100vw;
 }
 
 .chat__sidebar {
@@ -183,4 +184,22 @@ button:disabled {
     list-style-type: none;
     font-weight: 300;
     padding: 12px 24px 0 24px;
+}
+
+
+/* toast */
+.toast-container{
+    display: flex;
+    flex-direction: column;
+    gap:10px
+}
+.toast{
+    background-color: white;
+    box-shadow: 0px 0px 5px black;
+    border-radius: 10px;
+    padding: 12px;
+}
+.toast-body{
+    text-align: center;
+    font-size: 1rem;
 }
