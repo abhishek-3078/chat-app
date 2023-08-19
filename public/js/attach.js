@@ -10,6 +10,7 @@ const sendAttach=()=>{
     const attach=$messageFormAttach.files[0]
     console.log(attach.type)
     const reader=new FileReader()
+    const {elem,id}=showToast("file is being sent...",1000000)
     // reader.readAsDataURL(attach)
     reader.readAsArrayBuffer(attach)
     reader.onload=()=>{
@@ -31,6 +32,8 @@ const sendAttach=()=>{
             i++;
         } 
         socket.emit("chunk-end",attach.type)
+        $toastContainer.removeChild(elem)
+        clearTimeout(id)
     }
 }
 let fileBuffer=[]
@@ -62,7 +65,14 @@ socket.on("completedUpload",(username,time,type)=>{
     }
  
 }else{
-    alert("Only Image and Video is supported")
+    const html=Mustache.render(messageTemplate,{
+        username:username,
+        message:`<a href=${url} target="_blank">Open File</a>`,
+        createdAt:moment(time).format('h:mm a')
+    })
+    $messages.insertAdjacentHTML('beforeend',html) 
+    autoscroll()
+    // alert("Only Image and Video is supported")
 }
     
     fileBuffer=[]

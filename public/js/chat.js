@@ -42,14 +42,24 @@ const autoscroll=()=>{
 
     }
 }
-const showToast=(message)=>{
+const showToast=(message,time=2000)=>{
     const html=Mustache.render(toastTemplate,{
         message
     })
     $toastContainer.insertAdjacentHTML('beforeend',html) 
-    setTimeout(()=>{
-        $toastContainer.removeChild($toastContainer.firstElementChild)
-    },2000)
+    // setTimeout(()=>{
+    //     $toastContainer.removeChild($toastContainer.firstElementChild)
+    // },2000)
+    let id;
+    setTimeout(() => {
+        $toastContainer.firstElementChild.classList.add('fade-out-up');
+    
+        // Remove the element after the animation duration
+        id=setTimeout(() => {
+            $toastContainer.removeChild($toastContainer.firstElementChild)
+        }, 500); // Animation duration: 0.5s
+    }, time);
+    return {elem:$toastContainer.firstElementChild,id:10}
 }
 const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/g;
 socket.on('message',(message)=>{
