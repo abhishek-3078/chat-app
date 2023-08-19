@@ -41,14 +41,12 @@ const autoscroll=()=>{
         $messages.scrollTop=$messages.scrollHeight
 
     }
-    
-
 }
+const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/g;
 socket.on('message',(message)=>{
-    console.log(message)
     const html=Mustache.render(messageTemplate,{
         username:message.username,
-        message:message.text,
+        message:message.text.replace(urlRegex,'<a href="$&" target="_blank">$&</a>'),
         createdAt:moment(message.createdAt).format('h:mm a')
     })
     $messages.insertAdjacentHTML('beforeend',html) 
@@ -80,6 +78,10 @@ document.querySelector('#message-form').addEventListener('submit',(e)=>{
     
     const message=e.target.elements.message.value 
     //acknowledgement is client getting notified by server thst the event was received and processed
+    if(message.trim().length==0) {
+        $messageFormButton.removeAttribute('disabled')
+        return alert("message can't be empty")
+    }
     socket.emit('sendMessage',message,(error)=>{
         //enable the form
         $messageFormButton.removeAttribute('disabled')
