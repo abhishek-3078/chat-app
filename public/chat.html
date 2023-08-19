@@ -11,7 +11,16 @@
   </head>
   <body>
     <div class="chat">
-      <div id="sidebar" class="chat__sidebar"></div>
+      <div class="chat__sidebar">
+        <div class="burger">
+          <div id="toggleSidebar" class="sidebar-toggle-button">
+            <div class="hamburger"></div>
+          </div>
+        </div>
+        
+      <div id="sidebar" >   
+      </div>
+    </div>
       <div class="chat__main">
         <div id="messages" class="chat__messages"></div>
         <div class="compose">
@@ -108,5 +117,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/chat.js"></script>
     <script src="/js/attach.js"></script>
+    <script src="/js/style.js"></script>
   </body>
 </html>

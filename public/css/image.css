@@ -37,3 +37,79 @@ button{
         justify-content: center;
     }
 }
+
+
+/* hamburger */
+.burger{
+    height: 50px;
+    width: 50px;
+    display: none;
+}
+@media screen and (max-width:600px) {
+    .burger{
+        display: block;
+    }
+}
+.hamburger {
+    display: inline-blockc;
+    width: 30px;
+    height: 3px;
+    background-color: #ffffff;
+    position: relative;
+    transition: transform 0.3s, opacity 0.3s;
+    transform: rotate(45deg);
+  }
+  
+  .hamburger:before,
+  .hamburger:after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #f9f9f9;
+    position: absolute;
+    transition: transform 0.3s, opacity 0.3s;
+    transform: rotate(-90deg) ;
+  }
+  
+  .sidebar-toggle-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+  }
+  .sidebar-toggle-button:hover{
+    background-color: none;
+  }
+
+  .sidebar-toggle-button.active .hamburger {
+    transform: rotate(0deg);
+
+  }
+  
+  .sidebar-toggle-button.active .hamburger:before {
+    transform: rotate(0deg) ;
+    top:10px;
+    opacity: 0.8;
+  }
+  
+  .sidebar-toggle-button.active .hamburger:after {
+    transform: rotate(0deg);
+    opacity: 0.8;
+    top:-10px;
+  }
+
+  .chat__sidebar.active{
+    width: 80px;
+  }
+  #sidebar,.chat__sidebar{
+    transition: all 0.5s ease-in;
+}
+  .sidebar-visible{
+    transform: translateX(-200%);
+  }
