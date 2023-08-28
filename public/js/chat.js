@@ -88,7 +88,7 @@ socket.on('roomData',({room,users})=>{
         room,
         users
     })
-    document.querySelector('#sidebar').innerHTML+=html
+    document.querySelector('#sidebar').innerHTML=html
 })
 document.querySelector('#message-form').addEventListener('submit',(e)=>{
     e.preventDefault() 

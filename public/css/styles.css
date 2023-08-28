@@ -96,7 +96,7 @@ button:disabled {
     color: white;
     background: #333744;
     width: 225px;
-    overflow-y: scroll
+    overflow-y: auto;
 }
 .room-list{
     padding-left: 10px;
@@ -183,9 +183,12 @@ button:disabled {
 .users {
     list-style-type: none;
     font-weight: 300;
-    padding: 12px 24px 0 24px;
+    padding: 5px 24px 0 24px;
 }
 
+.room-list{
+    font-size: 2rem;
+}
 
 /* toast */
 .toast-container{

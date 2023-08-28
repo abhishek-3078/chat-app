@@ -8,7 +8,7 @@ audioTemplate=document.querySelector('#audio-template').innerHTML
 
 const sendAttach=()=>{
     const attach=$messageFormAttach.files[0]
-    console.log(attach.type)
+    console.log(attach)
     const reader=new FileReader()
     const {elem,id}=showToast("file is being sent...",1000000)
     // reader.readAsDataURL(attach)
@@ -31,7 +31,7 @@ const sendAttach=()=>{
             socket.emit("send-chunk",vid[i])
             i++;
         } 
-        socket.emit("chunk-end",attach.type)
+        socket.emit("chunk-end",attach.type,attach.name)
         $toastContainer.removeChild(elem)
         clearTimeout(id)
     }
@@ -40,8 +40,8 @@ let fileBuffer=[]
 socket.on('postChunk',buffer=>{
     fileBuffer.push(buffer)
 })
-socket.on("completedUpload",(username,time,type)=>{
-    console.log("completed")
+socket.on("completedUpload",(username,time,type,filename)=>{
+    console.log("completed",filename)
     const blob=new Blob(fileBuffer,{type})
     const url=URL.createObjectURL(blob)
     type=type.split('/')
@@ -67,7 +67,7 @@ socket.on("completedUpload",(username,time,type)=>{
 }else{
     const html=Mustache.render(messageTemplate,{
         username:username,
-        message:`<a href=${url} target="_blank">Open File</a>`,
+        message:`<a href=${url} target="_blank">${filename}</a>`,
         createdAt:moment(time).format('h:mm a')
     })
     $messages.insertAdjacentHTML('beforeend',html) 

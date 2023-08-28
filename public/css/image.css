@@ -77,7 +77,6 @@ button{
     top: 10px;
     left: 10px;
     z-index: 1000;
-    background-color: #333;
     color: white;
     border: none;
     padding: 5px;
@@ -86,7 +85,6 @@ button{
   .sidebar-toggle-button:hover{
     background-color: none;
   }
-
   .sidebar-toggle-button.active .hamburger {
     transform: rotate(0deg);
 

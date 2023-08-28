@@ -54,11 +54,11 @@ io.on('connection',(socket)=>{
         const user=getUser(socket.id)  
         io.to(user.room).emit("postChunk",data)
       })
-      socket.on("chunk-end",(type)=>{
+      socket.on("chunk-end",(type,filename)=>{
         
         const user=getUser(socket.id) 
         const time=new Date().getTime()
-        io.to(user.room).emit("completedUpload",user.username,time,type)
+        io.to(user.room).emit("completedUpload",user.username,time,type,filename)
       })
       socket.on("send-audio-chunk",(data)=>{
        
