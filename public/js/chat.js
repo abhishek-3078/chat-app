@@ -51,6 +51,8 @@ const showToast=(message,time=2000)=>{
     //     $toastContainer.removeChild($toastContainer.firstElementChild)
     // },2000)
     let id;
+    // alert("inside")
+    console.log("inside")
     setTimeout(() => {
         $toastContainer.firstElementChild.classList.add('fade-out-up');
     

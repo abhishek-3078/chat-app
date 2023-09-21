@@ -1,7 +1,7 @@
 # chat-app
 This is a chat app where users can create a room and have a chat among them.
 # Available features
-* send text message
+* send text messages
 * send audio/images/videos/files
 * live location
 ***

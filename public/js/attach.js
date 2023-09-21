@@ -6,11 +6,15 @@ const $stopAudio=document.querySelector('#stopRecordAudio')
 videoTemplate=document.querySelector('#video-template').innerHTML
 audioTemplate=document.querySelector('#audio-template').innerHTML
 
+const toastMessages={}
 const sendAttach=()=>{
     const attach=$messageFormAttach.files[0]
     console.log(attach)
     const reader=new FileReader()
-    const {elem,id}=showToast("file is being sent...",1000000)
+    const {elem,id}=showToast("file is being sent...",10000)
+    toastMessages[attach.name]=[elem,id]
+    console.log(toastMessages)
+    console.log("hello",elem)
     // reader.readAsDataURL(attach)
     reader.readAsArrayBuffer(attach)
     reader.onload=()=>{
@@ -32,8 +36,8 @@ const sendAttach=()=>{
             i++;
         } 
         socket.emit("chunk-end",attach.type,attach.name)
-        $toastContainer.removeChild(elem)
-        clearTimeout(id)
+        // $toastContainer.removeChild(elem)
+        // clearTimeout(id)
     }
 }
 let fileBuffer=[]
@@ -76,6 +80,11 @@ socket.on("completedUpload",(username,time,type,filename)=>{
 }
     
     fileBuffer=[]
+    console.log(toastMessages)
+    $toastContainer.removeChild(toastMessages[filename][0])
+    clearTimeout(toastMessages[filename][1])
+    delete toastMessages[filename]
+    console.log(toastMessages)
     autoscroll()
     
     
